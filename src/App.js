@@ -105,18 +105,3 @@ export default function App() {
     </>
   );
 }
-<button
-  onClick={() => removeFromCart(i)}
-  style={{
-    marginLeft: 12,
-    backgroundColor: "#cc0000",
-    fontSize: 12,
-    padding: "4px 8px",
-    borderRadius: 4,
-    color: "white",
-    border: "none",
-    cursor: "pointer",
-  }}
->
-  Remove
-</button>
