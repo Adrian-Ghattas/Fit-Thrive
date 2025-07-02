@@ -14,6 +14,16 @@ export default function Survey() {
     setSubmitted(true);
   };
 
+  const inputStyle = {
+    width: "100%",
+    padding: "10px 12px",
+    fontSize: 14,
+    borderRadius: 4,
+    border: "1px solid #ccc",
+    marginTop: 6,
+    boxSizing: "border-box",
+  };
+
   return (
     <div
       style={{
@@ -23,45 +33,43 @@ export default function Survey() {
         border: "1px solid #ccc",
         borderRadius: 8,
         textAlign: "center",
-        display: "flex",
-        flexDirection: "column",
-        gap: 16,
         backgroundColor: "#f9f9f9",
+        boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
       }}
     >
-      <h2>We’d love your feedback!</h2>
+      <h2 style={{ marginBottom: 20 }}>We’d love your feedback!</h2>
 
       {submitted ? (
-        <p>Thanks for sharing your thoughts 💬</p>
+        <p style={{ fontSize: 16, fontWeight: 500 }}>Thanks for sharing your thoughts 💬</p>
       ) : (
-        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <label>
-            How was your experience?
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div style={{ textAlign: "left" }}>
+            <label style={{ fontWeight: 500 }}>How was your experience?</label>
             <select
               name="rating"
               value={form.rating}
               onChange={handleChange}
               required
-              style={{ padding: 8, marginTop: 4 }}
+              style={inputStyle}
             >
               <option value="">Select</option>
               <option value="Great">Great</option>
               <option value="Okay">Okay</option>
               <option value="Bad">Bad</option>
             </select>
-          </label>
+          </div>
 
-          <label>
-            Anything you'd like to share?
+          <div style={{ textAlign: "left" }}>
+            <label style={{ fontWeight: 500 }}>Anything you'd like to share?</label>
             <textarea
               name="feedback"
               value={form.feedback}
               onChange={handleChange}
               rows={4}
-              style={{ padding: 8, marginTop: 4 }}
+              style={{ ...inputStyle, resize: "vertical" }}
               placeholder="Your feedback..."
             />
-          </label>
+          </div>
 
           <button
             type="submit"
@@ -73,9 +81,11 @@ export default function Survey() {
               borderRadius: 4,
               cursor: "pointer",
               fontWeight: 600,
+              fontSize: 14,
+              transition: "0.3s ease",
             }}
           >
-            Submit
+            Submit Feedback
           </button>
         </form>
       )}
