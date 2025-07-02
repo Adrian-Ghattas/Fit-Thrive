@@ -2,50 +2,83 @@
 import React, { useState } from "react";
 
 export default function Survey() {
-  const [rating, setRating] = useState("");
-  const [comments, setComments] = useState("");
+  const [form, setForm] = useState({ rating: "", feedback: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = e => {
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
   };
 
-  if (submitted) {
-    return (
-      <div className="container" style={{ maxWidth: 600, marginTop: 40 }}>
-        <p style={{ fontSize: 18, fontWeight: 600, color: "#0052cc" }}>
-          Thank you for your feedback! We appreciate your time.
-        </p>
-      </div>
-    );
-  }
-
   return (
-    <form onSubmit={handleSubmit} className="container" style={{ maxWidth: 600, marginTop: 40 }}>
-      <h2>Help Us Improve</h2>
+    <div
+      style={{
+        maxWidth: 500,
+        margin: "40px auto",
+        padding: 20,
+        border: "1px solid #ccc",
+        borderRadius: 8,
+        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        gap: 16,
+        backgroundColor: "#f9f9f9",
+      }}
+    >
+      <h2>We’d love your feedback!</h2>
 
-      <label>
-        How would you rate your experience?
-        <select value={rating} onChange={e => setRating(e.target.value)} required>
-          <option value="">Select</option>
-          {[1, 2, 3, 4, 5].map(n => (
-            <option key={n} value={n}>{n}</option>
-          ))}
-        </select>
-      </label>
+      {submitted ? (
+        <p>Thanks for sharing your thoughts 💬</p>
+      ) : (
+        <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <label>
+            How was your experience?
+            <select
+              name="rating"
+              value={form.rating}
+              onChange={handleChange}
+              required
+              style={{ padding: 8, marginTop: 4 }}
+            >
+              <option value="">Select</option>
+              <option value="Great">Great</option>
+              <option value="Okay">Okay</option>
+              <option value="Bad">Bad</option>
+            </select>
+          </label>
 
-      <label>
-        Additional Comments:
-        <textarea
-          value={comments}
-          onChange={e => setComments(e.target.value)}
-          rows={5}
-          placeholder="Your comments here..."
-        />
-      </label>
+          <label>
+            Anything you'd like to share?
+            <textarea
+              name="feedback"
+              value={form.feedback}
+              onChange={handleChange}
+              rows={4}
+              style={{ padding: 8, marginTop: 4 }}
+              placeholder="Your feedback..."
+            />
+          </label>
 
-      <button type="submit">Submit Feedback</button>
-    </form>
+          <button
+            type="submit"
+            style={{
+              backgroundColor: "#0077cc",
+              color: "white",
+              padding: "10px 16px",
+              border: "none",
+              borderRadius: 4,
+              cursor: "pointer",
+              fontWeight: 600,
+            }}
+          >
+            Submit
+          </button>
+        </form>
+      )}
+    </div>
   );
 }
